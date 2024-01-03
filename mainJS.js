@@ -85,9 +85,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             '</div>';
 
         eventCard.addEventListener('click', () => {
-            const cardTitle = eventCard.querySelector('.event-name').textContent;
             const popupTextBlock = document.getElementById('popup-text-block');
-            popupTextBlock.textContent = cardTitle;
+            const eventName = eventCard.querySelector('.event-name').textContent;
+            const eventVenue = eventCard.querySelector('.venue').textContent;
+
+            popupTextBlock.innerHTML = eventName + '<br>' + formattedDate + '<br>' + eventVenue;
         });
 
         return eventCard;
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (activeFilterId && !filterFunction) {
                 card.style.display = 'none';
             } else {
-                card.style.display = (!filterFunction || filterFunction(eventDate)) ? '' : 'none';
+                card.style.display = (!filterFunction or filterFunction(eventDate)) ? '' : 'none';
             }
         });
     }
@@ -150,14 +152,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         nextWeek.setDate(nextWeek.getDate() + (7 - nextWeek.getDay()));
         return nextWeek;
     }
-
-    const eventCards = document.querySelectorAll('.div-block-5');
-    const popupTextBlock = document.getElementById('popup-text-block');
-
-    eventCards.forEach(function(card) {
-        card.addEventListener('click', function() {
-            const cardTitle = card.querySelector('.event-name').textContent;
-            popupTextBlock.textContent = cardTitle;
-        });
-    });
 });
