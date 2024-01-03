@@ -1,6 +1,3 @@
-<script src="https://unpkg.com/realm-web@1.4.0/dist/bundle.iife.js"></script>
-
-<script>
 document.addEventListener('DOMContentLoaded', async function() {
     // MongoDB Realm configuration
     const realmAppId = 'comedybit-botzw'; // Replace with your Realm app ID
@@ -166,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 
-<script>
+
 document.addEventListener('DOMContentLoaded', async function() {
     const app = new Realm.App({ id: 'comedybit-botzw' }); // Replace with your Realm app ID
 
@@ -232,4 +229,3 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 });
-</script>
