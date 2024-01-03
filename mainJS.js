@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // MongoDB Realm configuration
     const realmAppId = 'comedybit-botzw'; // Replace with your Realm app ID
     const dbName = 'events'; // Replace with your database name
     const collectionName = 'finalEvents'; // Replace with your collection name
-
-    // Initialize MongoDB Realm
     const app = new Realm.App({ id: realmAppId });
     let currentCity = 'Los Angeles'; // Set the default city to Los Angeles
 
@@ -83,13 +80,23 @@ document.addEventListener('DOMContentLoaded', async function() {
             eventCard.innerHTML = '<div class="top">' +
                                   '<img src="' + event.thumbnail + '" loading="lazy" alt="" class="image-3">' +
                                   '<div class="inner-block">' +
-                                  '<img src="https://uploads-ssl.webflow.com/658b76990ed1c61ba88b6870/658b76990ed1c61ba88b6878_Path.svg" loading="lazy" alt="" class="creator-icon">' +
+                                  '<img src="path-to-your-creator-icon" loading="lazy" alt="" class="creator-icon">' +
                                   '<div class="event-name">' + event.eventName + '</div>' +
                                   '</div></div>' +
                                   '<div class="bottom">' +
                                   '<div class="date">' + formattedDate + '</div>' +
                                   '<div class="venue">' + event.locationName + '</div>' +
                                   '</div>';
+
+            // Add a click event listener to the newly created eventCard
+            eventCard.addEventListener('click', function() {
+                // Get the title from the clicked card
+                const cardTitle = eventCard.querySelector('.event-name').textContent;
+
+                // Update the popup text block content with the card's title
+                const popupTextBlock = document.getElementById('popup-text-block');
+                popupTextBlock.textContent = cardTitle;
+            });
 
             cardContainer.appendChild(eventCard);
         });
@@ -140,7 +147,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-
     function startOfNextMonth(date) {
         return new Date(date.getFullYear(), date.getMonth() + 1, 1);
     }
@@ -157,74 +163,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     fetchCities(); // Populate city search and fetch data for Los Angeles on load
-});
 
+    // Get all event cards (assuming they share a common class)
+    const eventCards = document.querySelectorAll('.div-block-5');
 
+    // Get the popup text block element by its ID
+    const popupTextBlock = document.getElementById('popup-text-block');
 
+    // Loop through each event card and add a click event handler
+    eventCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            // Get the title from the clicked card
+            const cardTitle = card.querySelector('.event-name').textContent;
 
-
-document.addEventListener('DOMContentLoaded', async function() {
-    const app = new Realm.App({ id: 'comedybit-botzw' }); // Replace with your Realm app ID
-
-    async function loginAnonymous() {
-        try {
-            return await app.logIn(Realm.Credentials.anonymous());
-        } catch (error) {
-            console.error('There was a problem logging in:', error);
-            return null;
-        }
-    }
-
-    async function searchEvents(query) {
-        try {
-            const user = await loginAnonymous();
-            if (user) {
-                return await user.functions.searchEvents(query);
-            }
-        } catch (error) {
-            console.error('Error searching events:', error);
-            return [];
-        }
-    }
-
-    // Function to create and append event cards
-    function populateEvents(events) {
-        const cardContainer = document.querySelector('.row-1');
-        cardContainer.innerHTML = ''; // Clear existing content
-
-        events.forEach(event => {
-            // Create and append event cards as per your existing logic
-            // Example event card structure (modify as needed)
-            const eventCard = document.createElement('div');
-            eventCard.className = 'div-block-5';
-            eventCard.style.opacity = '1';
-
-            // Format the date and other details
-            const eventDate = new Date(event.date);
-            const formattedDate = eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + ' | ' + eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-
-            eventCard.innerHTML = '<div class="top">' +
-                                  '<img src="' + event.thumbnail + '" loading="lazy" alt="" class="image-3">' +
-                                  '<div class="inner-block">' +
-                                  '<img src="path-to-your-creator-icon" loading="lazy" alt="" class="creator-icon">' +
-                                  '<div class="event-name">' + event.eventName + '</div>' +
-                                  '</div></div>' +
-                                  '<div class="bottom">' +
-                                  '<div class="date">' + formattedDate + '</div>' +
-                                  '<div class="venue">' + event.locationName + '</div>' +
-                                  '</div>';
-
-            cardContainer.appendChild(eventCard);
+            // Update the popup text block content with the card's title
+            popupTextBlock.textContent = cardTitle;
         });
-    }
-
-    // Add event listener to the search button
-    document.getElementById('search-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const query = document.getElementById('name').value;
-        if (query) {
-            const events = await searchEvents(query);
-            populateEvents(events);
-        }
     });
 });
