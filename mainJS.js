@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function populateEvents(events) {
+        console.log("Populating events:", events);
         const cardContainer = document.querySelector('.row-1');
         cardContainer.innerHTML = '';
 
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function createEventCard(event) {
+        console.log("Creating event card for:", event.eventName);
         const eventCard = document.createElement('div');
         eventCard.className = 'div-block-5';
         eventCard.style.opacity = '1';
@@ -85,6 +87,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             '</div>';
 
         eventCard.addEventListener('click', () => {
+            console.log("Event card clicked:", event.eventName);
             const popupTextBlock = document.getElementById('popup-text-block');
             const eventName = eventCard.querySelector('.event-name').textContent;
             const eventVenue = eventCard.querySelector('.venue').textContent;
@@ -126,6 +129,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     function filterEvents(filterFunction) {
+        console.log("Filtering events");
         const cards = document.querySelectorAll('.div-block-5');
         cards.forEach(card => {
             const dateStr = card.querySelector('.date').textContent.split('|')[0].trim();
