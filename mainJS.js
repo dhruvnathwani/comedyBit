@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (activeFilterId && !filterFunction) {
                 card.style.display = 'none';
             } else {
-                card.style.display = (!filterFunction or filterFunction(eventDate)) ? '' : 'none';
+                card.style.display = (!filterFunction || filterFunction(eventDate)) ? '' : 'none';
             }
         });
     }
