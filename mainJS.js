@@ -158,7 +158,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     fetchCities(); // Populate city search and fetch data for Los Angeles on load
 });
-</script>
 
 
 
