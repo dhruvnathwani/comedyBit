@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', async function() {
     const realmAppId = 'comedybit-botzw';
     const dbName = 'events';
@@ -30,8 +28,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
     async function startApp(city) {
+        setCitySearchValue(city);
         fetchCitiesAndData(city);
         setUpEventListeners();
+    }
+
+    
+    function setCitySearchValue(city) {
+        const citySearch = document.getElementById('citySearch');
+        if (citySearch) {
+            citySearch.value = city;
+        }
     }
 
 
