@@ -10,28 +10,28 @@ document.addEventListener('DOMContentLoaded', async function() {
             const lat = position.coords.latitude;
             const long = position.coords.longitude;
             console.log(`Latitude: ${lat}, Longitude: ${long}`);
-            console.log(`Current city after geolocation: ${currentCity}`);
 
             currentCity = await getClosestCity(lat, long);
-            console.log(`Current city after await: ${currentCity}`);
+            console.log(`Current city after implementing logic: ${currentCity}`);
 
             const citySearch = document.getElementById('citySearch');
             citySearch.value = currentCity;
-            fetchData(currentCity);
-            fetchVenues(currentCity);
+            
+            fetchCitiesAndData(currentCity);
+
         }, handleError);
         
         function handleError(error) {
             console.error('Error getting location:', error.message || 'Unknown Error');
             const citySearch = document.getElementById('citySearch');
             citySearch.value = currentCity
-            fetchData(currentCity);
-            fetchVenues(currentCity); // Default to Los Angeles
+
+            fetchCitiesAndData(currentCity); // Default to Los Angeles
         }
 
     } else {
         console.log('Geolocation is not supported by this browser.');
-        fetchVenues(currentCity); // Default to Los Angeles
+        fetchCitiesAndData(currentCity); // Default to Los Angeles
     }
 
     async function login() {
@@ -211,6 +211,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchData(city);
         }
     }
+
+
+
+
     function populateCitySearch(cities) {
         const citySearch = document.getElementById('citySearch');
         citySearch.innerHTML = '<option value="" selected>Choose a City</option>';
@@ -236,7 +240,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             cardContainer.appendChild(eventCard);
         });
     }
-    fetchCitiesAndData(currentCity);
+
+
     const dateFilters = {
         'tonight-button': (date) => date.toDateString() === new Date().toDateString(),
         'this-week-button': (date) => date >= startOfWeek(new Date()) && date < startOfNextWeek(new Date()),
